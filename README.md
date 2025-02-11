@@ -41,3 +41,30 @@ sudo apt install patch
 sudo apt install git build-essential linux-headers-current-sunxi -y
 
 ls -al /lib/modules/$(uname -r)/build
+
+git clone https://github.com/yudelex/H3_PCM1808.git
+
+cd H3_PCM1808/
+
+##### Внесение изменений в DT и файлы сборки модуля ядра.
+
+sudo armbian-add-overlay pcm1808.dts
+
+sudo patch -d/ -p0 < pcm1808.patch
+
+##### Сборка модуля ядра и включение модуля в загрузку.
+
+cd codecs/
+
+make all && sudo make install
+
+sudo reboot
+
+##### Проверка наличия модуля и звукового устройства в системе.
+
+lsmod | grep pcm1808
+
+arecord -l
+
+arecord -L
+
