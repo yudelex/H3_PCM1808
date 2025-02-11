@@ -30,45 +30,83 @@
 
 ##### Установка необходимого программного обеспечения и исходных кодов.
 
+```bash
 sudo apt-get update && sudo apt-get upgrade
+```
 
+```bash
 sudo apt install git
+```
 
+```bash
 sudo apt install make
+```
 
+```bash
 sudo apt install patch
+```
 
+```bash
 sudo apt install git build-essential linux-headers-current-sunxi -y
+```
 
+```bash
 ls -al /lib/modules/$(uname -r)/build
+```
 
+```bash
 git clone https://github.com/yudelex/H3_PCM1808.git
+```
 
+```bash
 cd H3_PCM1808/
+```
+
+
 
 ##### Внесение изменений в DT и файлы сборки модуля ядра.
 
+```bash
 sudo armbian-add-overlay pcm1808.dts
+```
 
+```bash
 sudo patch -d/ -p0 < pcm1808.patch
+```
+
+
 
 ##### Сборка модуля ядра и включение модуля в загрузку.
 
+```bash
 cd codecs/
+```
 
+```bash
 make all && sudo make install
+```
 
+```bash
 sudo reboot
+```
+
+
 
 ##### Проверка наличия модуля и звукового устройства в системе.
 
+```bash
 lsmod | grep pcm1808
+```
 
+```bash
 arecord -l
+```
 
+```bash
 arecord -L
+```
 
-#### 
+
 
 #### Отладка модуля ядра.
 
